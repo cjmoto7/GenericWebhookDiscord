@@ -1,0 +1,10 @@
+{
+  "webhook": [
+    {
+      "url" : "",
+      "content" : "@everyone this is a test",
+      "username" : "",
+      "icon_url" : ""
+    }
+  ]
+}
