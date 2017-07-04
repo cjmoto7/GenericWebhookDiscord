@@ -116,8 +116,15 @@ class Field():
         self.value = value
         self.short = short
 
+config_file = sys.argv
+if len(config_file) > 2:
+    while len(config_file) > 2:
+        del config_file[-1]
 
-discord_url = "https://discordapp.com/api/webhooks/319759986236588032/mzLK2Az686hq7dvzHiBxzDGI-QKsBweitT5clsDsE6_5BZuOhyAugh5zNfeW__d1iPM5"
-wh = Webhook(discord_url, "", "Roflz")
+with open(config_file[1]) as json_data:
+    webhook_config = json.load(json_data)
 
-wh.post()
+for hook in webhook_config['webhook']:
+    wh = Webhook(hook['url'], hook['content'], hook['username'], hook['icon_url'])
+    wh.post()
+    del wh
