@@ -4,6 +4,7 @@ import sys
 import os
 import json
 import requests
+import argparse
 
 class Webhook():
     def __init__(self, url, content, username="", icon_url=""):
