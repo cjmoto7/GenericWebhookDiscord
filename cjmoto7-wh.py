@@ -117,17 +117,21 @@ class Field():
         self.value = value
         self.short = short
 
+parser = argparse.ArgumentParser(description="Sends a webhook message to discord using config file specified via -c or --config")
+parser.add_argument('-c', '--config', required=True, help="config file to be used for webhook. Required")
+parser.add_argument('-m', '--message', help="message to be used in webhook, if omitted, will look for one in config file.")
+
 def main():
+    command_line = parser.parse_args()
 
-    config_file = sys.argv
-    if len(config_file) > 2:
-        while len(config_file) > 2:
-            del config_file[-1]
-
-    with open(config_file[1]) as json_data:
+    with open(command_line.config) as json_data:
         webhook_config = json.load(json_data)
 
+    arg_message = command_line.message
+
     for hook in webhook_config['webhook']:
+        if arg_message is not None:
+            hook['content'] = arg_message
         wh = Webhook(hook['url'], hook['content'], hook['username'], hook['icon_url'])
         wh.post()
         del wh
