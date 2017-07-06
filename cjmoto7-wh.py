@@ -117,15 +117,20 @@ class Field():
         self.value = value
         self.short = short
 
-config_file = sys.argv
-if len(config_file) > 2:
-    while len(config_file) > 2:
-        del config_file[-1]
+def main():
 
-with open(config_file[1]) as json_data:
-    webhook_config = json.load(json_data)
+    config_file = sys.argv
+    if len(config_file) > 2:
+        while len(config_file) > 2:
+            del config_file[-1]
 
-for hook in webhook_config['webhook']:
-    wh = Webhook(hook['url'], hook['content'], hook['username'], hook['icon_url'])
-    wh.post()
-    del wh
+    with open(config_file[1]) as json_data:
+        webhook_config = json.load(json_data)
+
+    for hook in webhook_config['webhook']:
+        wh = Webhook(hook['url'], hook['content'], hook['username'], hook['icon_url'])
+        wh.post()
+        del wh
+
+if __name__ == '__main__':
+    main()
