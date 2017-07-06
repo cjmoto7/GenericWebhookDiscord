@@ -2,7 +2,7 @@
   "webhook": [
     {
       "url" : "",
-      "content" : "@everyone this is a test",
+      "content" : "This is a test",
       "username" : "",
       "icon_url" : ""
     }
